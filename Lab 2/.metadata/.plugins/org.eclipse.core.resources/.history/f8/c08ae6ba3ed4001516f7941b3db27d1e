@@ -1,0 +1,6 @@
+
+public class ManWolf {
+	public static void main(String[] args){
+		
+	}
+}

@@ -1,9 +1,9 @@
 
-public class Driver extends ManWolf {
+public class Driver {
 
 	/**
-	 *assuming you already defined values for q0-q3
-	 **/
+	 *assuming you already defined values for q0-10
+	 */
 	private static final int q0  = 0;
 	private static final int q1  = 1;
 	private static final int q2  = 2;
@@ -24,11 +24,11 @@ public class Driver extends ManWolf {
 	/*N*/  {q10, q2,  q1,  q10, q10, q10, q10, q8,  q7,  q10}};
 	
 	int state = q0;
-	/*
+	/**
 	 * Makes on transition on each char in 
 	 * the given string.
 	 * @param in: the string to use as input
-	**/
+	 */
 	
 	public void process(String in) {
 	  for (int i = 0; i < in.length(); i++){
@@ -37,11 +37,23 @@ public class Driver extends ManWolf {
 	      state = delta[state][c-'a']; //fix me 
 	    }
 	    catch (ArrayIndexOutOfBoundsException ex) {
-	      state = delta[state][1]; //possible solution
+	      state = delta[state][c]; //possible solution
 	    }
 	  }
 	}
 	
+	/**
+	 * 
+	 * Reset the current state to the start state.
+	 */
+	public void reset() {
+	state = q0;
+	}
+	
+	/**
+	 * 
+	 * @return true if the end state is an accepting state
+	 */
 	public boolean isCorrect() {
 	  return state == q9;
 	}
