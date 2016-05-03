@@ -11,7 +11,7 @@ public class ManWolf {
 		while (s!=null) {
 			d.reset();
 			d.process(s);
-			if (d.isCorrect()) System.out.println(s);
+			if (d.isCorrectc()) System.out.println(s);
 			s = in.readLine();
 		}
 	}
