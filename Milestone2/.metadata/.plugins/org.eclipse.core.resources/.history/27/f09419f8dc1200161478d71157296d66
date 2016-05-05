@@ -1,0 +1,331 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTextArea;
+import javax.swing.JButton;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+import java.io.*;
+
+public class Milestone2 extends JFrame {
+
+  private JPanel contentPane;
+	/**
+	 * define all of the states
+	 */
+	private static final int q0   = 0;
+	private static final int q1   = 1;
+	private static final int q2   = 2;
+	private static final int q3   = 3;
+	private static final int q4   = 4;
+	private static final int q5   = 5;
+	private static final int q6   = 6;
+	private static final int q7   = 7;
+	private static final int q8   = 8;
+	private static final int q9   = 9;
+	private static final int q10  = 10;
+	private static final int q11  = 11;
+	private static final int q12  = 12;
+	private static final int q13  = 13;
+	private static final int q14  = 14;
+	private static final int q15  = 15;
+	private static final int q16  = 16;
+	private static final int q17  = 17;
+	private static final int q18  = 18;
+	private static final int q19  = 19;
+	private static final int q20  = 20;
+	private static final int q21  = 21;
+	private static final int q22  = 22;
+	private static final int q23  = 23;
+	private static final int q24  = 24;
+	private static final int q25  = 25;
+	private static final int q26  = 26;
+	private static final int q27  = 27;
+	private static final int q28  = 28;
+	private static final int q29  = 29;
+	private static final int q30  = 30;
+	private static final int q31  = 31;
+	private static final int q32  = 32;
+	private static final int q33  = 33;
+	private static final int q34  = 34;
+	private static final int q35  = 35;
+	private static final int q37  = 37;
+	
+	public static String file = "C:/users/Kyle/Desktop";
+	public static String fileText;
+	public static String line = null;
+	
+	/**
+	 * Set up the 2d Array for traversing through the states
+	 */
+	private static int[][] delta =
+				
+			         /*q0   q1   q2   q3   q4   q5   q6   q7   q8   q9   q10  q11  q12  q13  q14  q15  q16  q17  q18  q19  q20  q21  q22  q23  q24  q25  q26  q27  q28  q29  q30  q31  q32  q33  q34  q35*/
+	/* a */			{{ q6,  q2,  q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* b */			 { q6,  q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* c */			 { q6,  q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},			 
+	/* d */			 { q6,  q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* e */			 { q6,  q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* f */			 { q6,  q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* g */			 { q6,  q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* h */			 { q6,  q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* i */			 { q6,  q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q18, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* j */			 { q6,  q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37}, 
+	/* k */			 { q6,  q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* l */			 { q6,  q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* m */			 { q6,  q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* n */ 		 { q6,  q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q19, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* o */			 { q6,  q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* p */			 { q16, q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* q */			 { q6,  q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* r */			 { q6,  q37, q3,  q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q17, q37, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* s */			 { q6,  q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* t */			 { q6,  q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q37, q20, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* u */			 { q6,  q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* v */			 { q1,  q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* w */			 { q6,  q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* x */			 { q6,  q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* y */			 { q6,  q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* z */			 { q6,  q37, q37, q37, q5,  q37, q37, q37, q15, q37, q10, q10, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q29, q37, q24, q24, q37, q37, q37, q37, q37, q37, q32, q32, q37, q37},
+	/* 0 */		 	 { q37, q37, q37, q37, q37, q37, q37, q37, q13, q37, q37, q37, q37, q13, q37, q37, q37, q37, q37, q37, q37, q37, q27, q37, q37, q37, q37, q27, q37, q37, q37, q37, q37, q37, q37, q37},
+	/* 1 */		 	 { q37, q37, q37, q37, q37, q37, q37, q37, q13, q37, q37, q37, q37, q13, q37, q37, q37, q37, q37, q37, q37, q37, q27, q37, q37, q37, q37, q27, q37, q37, q37, q37, q37, q37, q37, q37},
+	/* 2 */		 	 { q37, q37, q37, q37, q37, q37, q37, q37, q13, q37, q37, q37, q37, q13, q37, q37, q37, q37, q37, q37, q37, q37, q27, q37, q37, q37, q37, q27, q37, q37, q37, q37, q37, q37, q37, q37},
+	/* 3 */		 	 { q37, q37, q37, q37, q37, q37, q37, q37, q13, q37, q37, q37, q37, q13, q37, q37, q37, q37, q37, q37, q37, q37, q27, q37, q37, q37, q37, q27, q37, q37, q37, q37, q37, q37, q37, q37},
+	/* 4 */		 	 { q37, q37, q37, q37, q37, q37, q37, q37, q13, q37, q37, q37, q37, q13, q37, q37, q37, q37, q37, q37, q37, q37, q27, q37, q37, q37, q37, q27, q37, q37, q37, q37, q37, q37, q37, q37},
+	/* 5 */		 	 { q37, q37, q37, q37, q37, q37, q37, q37, q13, q37, q37, q37, q37, q13, q37, q37, q37, q37, q37, q37, q37, q37, q27, q37, q37, q37, q37, q27, q37, q37, q37, q37, q37, q37, q37, q37},
+	/* 6 */		 	 { q37, q37, q37, q37, q37, q37, q37, q37, q13, q37, q37, q37, q37, q13, q37, q37, q37, q37, q37, q37, q37, q37, q27, q37, q37, q37, q37, q27, q37, q37, q37, q37, q37, q37, q37, q37},
+	/* 7 */		 	 { q37, q37, q37, q37, q37, q37, q37, q37, q13, q37, q37, q37, q37, q13, q37, q37, q37, q37, q37, q37, q37, q37, q27, q37, q37, q37, q37, q27, q37, q37, q37, q37, q37, q37, q37, q37},
+	/* 8 */		 	 { q37, q37, q37, q37, q37, q37, q37, q37, q13, q37, q37, q37, q37, q13, q37, q37, q37, q37, q37, q37, q37, q37, q27, q37, q37, q37, q37, q27, q37, q37, q37, q37, q37, q37, q37, q37},
+	/* 9 */		 	 { q37, q37, q37, q37, q37, q37, q37, q37, q13, q37, q37, q37, q37, q13, q37, q37, q37, q37, q37, q37, q37, q37, q27, q37, q37, q37, q37, q27, q37, q37, q37, q37, q37, q37, q37, q37},
+	/*(space)*/	 	 { q37, q37, q37, q4,  q37, q0,  q37, q8,  q37, q10, q11, q11, q37, q37, q8,  q37, q37, q37, q37, q37, q21, q37, q28, q24, q25, q25, q37, q37, q22, q0,  q37, q32, q33, q33, q37, q0 },
+	/* - */			 { q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q31, q37, q37, q34, q37, q37},
+	/* + */			 { q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q14, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q28, q37, q37, q37, q37, q37, q37, q37, q37},
+	/* = */			 { q37, q7,  q37, q37, q37, q37, q7,  q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37},
+	/* * */			 { q30, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q35, q37},
+	/* " */			 { q37, q37, q37, q37, q37, q37, q37, q37, q9,  q37, q37, q12, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q23, q37, q37, q26, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37},
+	/* ( */			 { q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q22, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37},
+	/* ) */			 { q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q37, q29, q29, q29, q37, q37, q37, q37, q37, q37, q37}};
+
+	/**
+	 * define the starting state
+	 */
+	int state = q0;	
+	private JTextField fileTextField;
+	
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Milestone2 frame = new Milestone2();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}		
+		/**
+		 * 
+		 * @return true if the end state is an accepting state
+		 */
+		public int isCorrect() {
+		  return state;
+		}
+	/**
+	 * Create the frame.
+	 */
+	public Milestone2() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 514, 355);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		final JTextArea textArea = new JTextArea();
+		textArea.setBounds(10, 36, 273, 180);
+		contentPane.add(textArea);
+		
+		JLabel lblStatus = new JLabel("Status:");
+		lblStatus.setBounds(293, 16, 46, 14);
+		contentPane.add(lblStatus);
+		
+		final JLabel statusLabel = new JLabel("");
+		statusLabel.setBounds(293, 41, 120, 14);
+		contentPane.add(statusLabel);
+		
+		JButton btnRun = new JButton("Run");
+		btnRun.addActionListener(new ActionListener() {
+			/**
+			 * start parsing through the text the user typed
+			 */
+			public void actionPerformed(ActionEvent e) {
+				
+				//get the text that the user inputted to parse through
+				String input = textArea.getText().toLowerCase();
+				input.trim();
+				//loop through each character in the input
+				for (int i = 0; i < input.length(); i++){
+				    char c = input.charAt(i);
+				    System.out.println("c = " + c);
+				    try{
+				    	//if the next state exists, set it to the current state
+				    	if (c=='a'||c=='b'||c=='c'||c=='d'||c=='e'||c=='f'||c=='g'||c=='h'||c=='i'||c=='j'||c=='k'||c=='l'||c=='m'||c=='n'||c=='o'||c=='p'||c=='q'||c=='r'||c=='s'||c=='t'||c=='u'||c=='v'||c=='w'||c=='x'||c=='y'||c=='z'){
+				    		state = delta[c-'a'][state];
+				    		System.out.println("State: " + state);
+				    	} else if (c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9'){
+				    		state = delta[c-(char)22][state];
+				    		System.out.println("State: " + state);
+				    	} else if (c == ' ' ){ //36
+				    		state = delta[c+(char)4][state];
+				    		System.out.println("State: " + state);
+				    	} else if (c == '-' ){ //37
+				    		state = delta[c-(char)8][state];
+				    		System.out.println("State: " + state);
+				    	}  else if (c == '+' ){ //38
+				    		state = delta[c-(char)5][state];
+				    		System.out.println("State: " + state);
+				    	} else if (c == '=' ){ //39
+				    		state = delta[c-(char)22][state];
+				    		System.out.println("State: " + state);
+				    	} else if (c == '*' ){ //40
+				    		state = delta[c-(char)2][state];
+				    		System.out.println("State: " + state);
+				    	} else if (c == '"' ){ //41
+				    		state = delta[c+(char)7][state];
+				    		System.out.println("State: " + state);
+				    	} else if (c == '('){ //42
+				    		state = delta[c+(char)2][state];
+				    		System.out.println("State: " + state);
+				    	} else if (c == ')' ){ //43
+				    		state = delta[c+(char)2][state];
+				    		System.out.println("State: " + state);
+				    	} else if (c == '\r'){
+				    		state = q0;
+				    	}
+				    
+				    }
+				    catch (ArrayIndexOutOfBoundsException ex) {
+				    	//We found an error! Something the user typed is incorrect
+				      statusLabel.setText("Rejected!");
+				      statusLabel.setForeground(Color.RED);
+				      textArea.setForeground(Color.RED);
+				      break;
+				    }
+				  }
+				  /**
+				   * accepting states: 5, 12, 13, 15, 27, 29, 35
+				   */
+					System.out.println(state);
+				  switch (state){
+				  case 5: //state = q5;
+				  	  System.out.println("Finished at state " + state);
+				  	  statusLabel.setForeground(Color.GREEN);
+				  	  statusLabel.setText("Accepted!");
+				  	  textArea.setForeground(Color.GREEN);
+				  	  break;
+				  case 12: //state = q12;
+			  		  System.out.println("Finished at state " + state);
+			  		  statusLabel.setForeground(Color.MAGENTA);
+				  	  statusLabel.setText("Accepted!");
+				  	  textArea.setForeground(Color.MAGENTA);
+			  		  break;
+				  case 13: //state = q13;
+			  		  System.out.println("Finished at state " + state);
+			  		  statusLabel.setForeground(Color.MAGENTA);
+				  	  statusLabel.setText("Accepted!");
+				  	  textArea.setForeground(Color.MAGENTA);
+			  		  break;
+				  case 15: //state = q15;
+			  		  System.out.println("Finished at state " + state);
+			  		  statusLabel.setForeground(Color.MAGENTA);
+				  	  statusLabel.setText("Accepted!");
+				  	  textArea.setForeground(Color.MAGENTA);
+			  		  break;
+				  case 29: //state = q29;
+			  		  System.out.println("Finished at state " + state);
+			  		  statusLabel.setForeground(Color.ORANGE);
+				  	  statusLabel.setText("Accepted!");
+				  	  textArea.setForeground(Color.ORANGE);
+			  		  break;
+				  case 35: //state = q35;
+					  System.out.println("Finished at state " + state);
+			  		  statusLabel.setForeground(Color.BLUE);
+				  	  statusLabel.setText("Accepted!");
+				  	  textArea.setForeground(Color.BLUE);
+			  		  break;
+				  }
+			}
+		});
+		btnRun.setBounds(10, 227, 89, 23);
+		contentPane.add(btnRun);
+		
+		JLabel lblTextParser = new JLabel("Text Reader!");
+		lblTextParser.setBounds(97, 11, 78, 14);
+		contentPane.add(lblTextParser);
+		
+		JButton btnReset = new JButton("Reset");
+		btnReset.addActionListener(new ActionListener() {
+			/**
+			 * Set the text area back to it's default state
+			 */
+			public void actionPerformed(ActionEvent e) {
+				state = q0;
+				statusLabel.setText("");
+				statusLabel.setForeground(Color.BLACK);
+				textArea.setText("");
+				textArea.setForeground(Color.BLACK);
+			}
+		});
+		btnReset.setBounds(194, 227, 89, 23);
+		contentPane.add(btnReset);
+		
+		fileTextField = new JTextField();
+		fileTextField.setBounds(293, 90, 120, 20);
+		contentPane.add(fileTextField);
+		fileTextField.setColumns(10);
+		
+		
+		JButton btnRead = new JButton("Read");
+		btnRead.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				file = file + fileTextField.getText() + ".txt";
+				try {
+					FileReader fileReader = new FileReader(file);
+					
+					BufferedReader bufferedReader = new BufferedReader(fileReader);
+				
+					while ((line = bufferedReader.readLine()) != null){
+						fileText = line;
+					}
+					
+					bufferedReader.close();
+				} catch (FileNotFoundException ex){
+					System.out.println("Couldn't find " + file);
+				} catch(IOException ex){
+					System.out.println("Error Reading file");
+				}
+				System.out.println(file);
+				System.out.println(fileText);
+				System.out.println(line);
+				textArea.setText(fileText);
+			}
+		});
+		btnRead.setBounds(293, 121, 89, 23);
+		contentPane.add(btnRead);
+		
+	}
+}

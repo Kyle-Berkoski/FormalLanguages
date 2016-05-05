@@ -1,0 +1,28 @@
+
+import java.io.*;
+
+public class readFile extends Milestone2{
+	
+	String file;
+	String fileText;
+	String line = null;
+	
+	public void readTextFile(){
+		try {
+			FileReader  fileReader = new FileReader(file);
+			
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+		
+			while ((line = bufferedReader.readLine()) != null){
+				fileText = line;
+			}
+			
+			bufferedReader.close();
+		} catch (FileNotFoundException ex){
+			System.out.println("Couldn't find " + file);
+		} catch(IOException ex1){
+			System.out.println("Error Reading file");
+		}
+	
+	}
+}
